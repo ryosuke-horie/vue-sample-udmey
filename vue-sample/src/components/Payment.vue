@@ -9,6 +9,11 @@ const price2 = 20000
 
 const url1 = 'google.com'
 const url2 = 'yahoo.com'
+
+// 購入ボタンをクリックしたときの関数
+const buy = (itemName: string) => {
+    alert('Are you sure to buy'+ itemName + '?')
+}
 </script>
 
 <template>
@@ -18,6 +23,7 @@ const url2 = 'yahoo.com'
             <label>{{ itemName1 }}</label>
             <label>{{price1}}円</label>
             <a v-bind:href="url1">bought at ...</a>
+            <button v-on:click="buy(itemName1)">BUY</button>
         </div>
             <div class="payment">
             <label>{{ itemName2 }}</label>
