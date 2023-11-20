@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch, toRefs } from 'vue'
 
 const itemName1 =ref<string>('Desk')
 const itemName2 ='Chair'
@@ -33,12 +33,23 @@ const inputPrice = (event:any) => {
 
 const budget = 50000
 
-// 計算を行う場合にはcomputedを使うのが推奨されてる
-const priceLabel = computed(() => {
-    if (item1.price > budget) {
-        return 'too expensive ...'
+// // 計算を行う場合にはcomputedを使うのが推奨されてる
+// const priceLabel = computed(() => {
+//     if (item1.price > budget) {
+//         return 'too expensive ...'
+//     } else {
+//         return item1.price + 'yen'
+//     }
+// })
+
+// 以下はwatchを使った場合（基本はcomputedでいい）
+const priceLabel = ref<string>(item1.price + 'yen')
+const { price } = toRefs(item1)
+watch(price, () => {
+        if (price.value > budget) {
+        priceLabel.value = 'too expensive ...'
     } else {
-        return item1.price + 'yen'
+        priceLabel.value =  price.value + 'yen'
     }
 })
 
